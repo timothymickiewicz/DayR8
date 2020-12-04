@@ -34,7 +34,12 @@ As a new user to Day-R8, simply click the above "Live Link". Once the Day-R8 sit
  The user is able to retrieve entries sorted by year and can also view an overall timeline of their emotions in a visual graph.
 
 <h2 id="installation"> Installation </h2>
-
+<li>Clone this repository to your local machine</li>
+<li>Open the code in your code editor</li>
+<li>`npm i` to install the necessary dependencies</li>
+<li>`npm start` to run a local server</li>
+<li>`npm run seed` to view seed data in the charts</li>
+<li>Seed login is username: tim@gmail.com and password is: password</li>
 
 <h2 id="tech"> Technology Stack </h2>          
 <ul>
@@ -46,7 +51,7 @@ As a new user to Day-R8, simply click the above "Live Link". Once the Day-R8 sit
 <li>MySql</li>
 <li>Node JS</li>
 <li>Express</li>
-<li>NPM Packages: Passport/bCrypt, Validator for React, React-Charts, Axios, Moment </li><li></li>
+<li>NPM Packages: Passport/bCrypt, Validator for React, React-Charts, Axios, Moment </li>
 </ul>          
 
 <h2 id="screen"> ScreenShots </h2>
