@@ -133,13 +133,11 @@ function SavedNotes({
   }
 
   const handleNotesByMonth = (year, month) => {
-    console.log(year, month);
     API.getBySpecificMonth({
       year: year,
       month: month,
       user: user
     }).then((res) => {
-      console.log(res.data);
       setFilteredNotes(res.data);
       // If the current open month is the clicked month, close the accordion, else if it is not, open the selected month's accordion
       setOpenMonth(currentOpenMonth === month ? false : month ? month : false);
