@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {makeWidthFlexible, XYPlot, XAxis, YAxis, HorizontalGridLines, VerticalGridLines, AreaSeries} from 'react-vis'
-import API from "../util/API";
+import {makeWidthFlexible, XYPlot, XAxis, YAxis, HorizontalGridLines, VerticalGridLines, VerticalBarSeries} from 'react-vis'
+import API from "../../util/API";
 
-function AreaChart(props) {
+function BarChart(props) {
     const [chartData, setChartData] = useState([]);
     const [xAxisArrayState, setXAxisArray] = useState([]);
+
+    const FlexibleXYPlot = makeWidthFlexible(XYPlot); 
 
     useEffect(() => {
     if (props.type === "Week") {
@@ -15,7 +17,6 @@ function AreaChart(props) {
             y: parseInt(point.emotion),
             };
         });
-        console.log(apiData);
         setChartData(apiData);
         for (let i=0;i<chartData.length;i++) {
             let xAxisArray = xAxisArrayState;
@@ -31,7 +32,6 @@ function AreaChart(props) {
             y: parseInt(point.emotion),
             };
         });
-        console.log(apiData);
         setChartData(apiData);
         for (let i=0;i<chartData.length;i++) {
             let xAxisArray = xAxisArrayState;
@@ -47,7 +47,6 @@ function AreaChart(props) {
             y: parseInt(point.emotion),
             };
         });
-        console.log(apiData);
         setChartData(apiData);
         for (let i=0;i<chartData.length;i++) {
             let xAxisArray = xAxisArrayState;
@@ -58,16 +57,32 @@ function AreaChart(props) {
     }
     }, [props.type, props.user]);
 
-    const FlexibleXYPlot = makeWidthFlexible(XYPlot); 
-
     return (
-        <FlexibleXYPlot xType="time" yDomain={[0, 8]} height={400}>
+        <FlexibleXYPlot 
+            xType="ordinal" 
+            yDomain={[0, 8]}
+            height={400}
+        >
             <VerticalGridLines />
             <HorizontalGridLines />
-            <XAxis axisDomain={xAxisArrayState} tickTotal={props.type === "Week" ? 7 : props.type === "Month" ? 15 : props.type === "Year" ? 12 : null} title="Date" position="end" />
-            <YAxis title="Rate" position="middle" />
-            <AreaSeries data={chartData} />
+            {props.type === "Week" ? <XAxis
+                title="Date" 
+                position="end"
+                tickFormat={function tickFormat(d){
+                    const date = new Date(d)
+                    return date.toString().substr(0, 10)
+                }}
+            /> : props.type === "Month" ? null : props.type === "Year" ? null : null}
+            <YAxis 
+                title="Rate" 
+                position="middle" 
+            />
+            <VerticalBarSeries 
+                data={chartData} 
+                barWidth={props.type === "Week" ? 0.8 : props.type === "Month" ? 0.5 : props.type === "Year" ? 0.1 : null} 
+            />
         </FlexibleXYPlot>
     )
 }
-export default AreaChart;
+
+export default BarChart;
